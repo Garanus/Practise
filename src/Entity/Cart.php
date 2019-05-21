@@ -36,6 +36,7 @@ class Cart
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
+     * @ORM\Column(name="user_id", type="integer")
      */
 
     private $userCart;
@@ -47,6 +48,7 @@ class Cart
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="products_id", referencedColumnName="id")
      * })
+     * @ORM\Column(name="products_id", type="integer")
      */
     private $productsCart;
 

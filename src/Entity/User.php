@@ -24,13 +24,13 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="first_name", type="string", length=30, nullable=false)
+     * @ORM\Column(name="first_name", type="string", length=30, nullable=true)
      */
     private $firstName;
     /**
      * @var string
      *
-     * @ORM\Column(name="last_name", type="string", length=40, nullable=false)
+     * @ORM\Column(name="last_name", type="string", length=40, nullable=true)
      */
     private $lastName;
     /**
@@ -48,7 +48,7 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="phone_number", type="string", length=15, nullable=false)
+     * @ORM\Column(name="phone_number", type="string", length=15, nullable=true)
      */
     private $phoneNumber;
 
@@ -214,7 +214,6 @@ class User implements UserInterface
     {
         return;
     }
-
     /**
      * @return Cart
      */
