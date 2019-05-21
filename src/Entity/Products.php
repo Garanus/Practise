@@ -8,8 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Products
  *
- * @ORM\Table(name="products", indexes={@ORM\Index(name="fk_products_cart_idx", columns={"cart_id"})})
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductsRepository")
+ * @ORM\Table(name="products", uniqueConstraints={@ORM\UniqueConstraint(name="catalogNumber", columns={"catalogNumber"})})
+ * @ORM\Entity
  */
 class Products
 {
