@@ -11,7 +11,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"}), @ORM\UniqueConstraint(name="phone_number_UNIQUE", columns={"phone_number"})})
  * @ORM\Entity
  */
-class User implements UserInterface  {
+class User implements UserInterface
+{
     /**
      * @var integer
      *
@@ -50,27 +51,21 @@ class User implements UserInterface  {
      * @ORM\Column(name="phone_number", type="string", length=15, nullable=false)
      */
     private $phoneNumber;
+
     /**
-     * @ORM\ManyToOne(targetEntity="Products", inversedBy="products_id")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=true)
+     * @var Cart
+     *
+     * @ORM\OneToMany(targetEntity="Cart", mappedBy="user", cascade={"all"})
      */
-    private $shopProducts;
-
+    private $carts;
     /**
-     * @ORM\ManyToOne(targetEntity="Cart", inversedBy="cart_id")
-     * @ORM\JoinColumn(name="cart_id", referencedColumnName="id", nullable=true)
-     */
-    private $shopCart;
-
-
-    /**
-     * Client constructor.
+     * User constructor.
      */
     public function __construct()
     {
-        $this->shopProducts = new ArrayCollection();
-        $this->shopCart=new ArrayCollection();
+        $this->carts = new ArrayCollection();
     }
+
     /**
      * @return int
      */
@@ -78,6 +73,7 @@ class User implements UserInterface  {
     {
         return $this->id;
     }
+
     /**
      * @param int $id
      */
@@ -85,6 +81,7 @@ class User implements UserInterface  {
     {
         $this->id = $id;
     }
+
     /**
      * @return string
      */
@@ -92,6 +89,7 @@ class User implements UserInterface  {
     {
         return $this->firstName;
     }
+
     /**
      * @param string $firstName
      */
@@ -99,6 +97,7 @@ class User implements UserInterface  {
     {
         $this->firstName = $firstName;
     }
+
     /**
      * @return string
      */
@@ -106,6 +105,7 @@ class User implements UserInterface  {
     {
         return $this->lastName;
     }
+
     /**
      * @param string $lastName
      */
@@ -113,6 +113,7 @@ class User implements UserInterface  {
     {
         $this->lastName = $lastName;
     }
+
     /**
      * @return string
      */
@@ -120,6 +121,7 @@ class User implements UserInterface  {
     {
         return $this->email;
     }
+
     /**
      * @param string $email
      */
@@ -127,6 +129,7 @@ class User implements UserInterface  {
     {
         $this->email = $email;
     }
+
     /**
      * @return string
      */
@@ -134,6 +137,7 @@ class User implements UserInterface  {
     {
         return $this->password;
     }
+
     /**
      * @param string $password
      */
@@ -141,6 +145,7 @@ class User implements UserInterface  {
     {
         $this->password = $password;
     }
+
     /**
      * @return string
      */
@@ -148,6 +153,7 @@ class User implements UserInterface  {
     {
         return $this->phoneNumber;
     }
+
     /**
      * @param string $phoneNumber
      */
@@ -175,6 +181,7 @@ class User implements UserInterface  {
     {
         return ['ROLE_USER'];
     }
+
     /**
      * Returns the salt that was originally used to encode the password.
      *
@@ -186,6 +193,7 @@ class User implements UserInterface  {
     {
         return null;
     }
+
     /**
      * Returns the username used to authenticate the user.
      *
@@ -195,6 +203,7 @@ class User implements UserInterface  {
     {
         return $this->email;
     }
+
     /**
      * Removes sensitive data from the user.
      *
@@ -207,36 +216,18 @@ class User implements UserInterface  {
     }
 
     /**
-     * @return mixed
+     * @return Cart
      */
-    public function getShopProducts()
+    public function getCarts(): Cart
     {
-        return $this->shopProducts;
+        return $this->carts;
     }
 
     /**
-     * @param mixed $shopProducts
+     * @param Cart $carts
      */
-    public function setShopProducts($shopProducts): void
+    public function setCarts(Cart $carts): void
     {
-        $this->shopProducts = $shopProducts;
+        $this->carts = $carts;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getShopCart()
-    {
-        return $this->shopCart;
-    }
-
-    /**
-     * @param mixed $shopCart
-     */
-    public function setShopCart($shopCart): void
-    {
-        $this->shopCart = $shopCart;
-    }
-
-
 }

@@ -6,8 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
-* @ORM\Entity(repositoryClass="App\Repository\ProductsRepository")
-*/
+ * Products
+ *
+ * @ORM\Table(name="products", indexes={@ORM\Index(name="fk_products_cart_idx", columns={"cart_id"})})
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductsRepository")
+ */
 class Products
 {
     /**
@@ -65,6 +68,22 @@ class Products
      */
 
     private $size;
+
+    /**
+     * @var Cart
+     *
+     * @ORM\OneToMany(targetEntity="Cart", mappedBy="products", cascade={"all"})
+     */
+    private $carts;
+
+
+    /**
+     * Products constructor.
+     */
+    public function __construct()
+    {
+        $this->carts = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -175,5 +194,21 @@ class Products
     public function setSize(string $size): void
     {
         $this->size = $size;
+    }
+
+    /**
+     * @return Cart
+     */
+    public function getCarts(): Cart
+    {
+        return $this->carts;
+    }
+
+    /**
+     * @param Cart $carts
+     */
+    public function setCarts(Cart $carts): void
+    {
+        $this->carts = $carts;
     }
 }
