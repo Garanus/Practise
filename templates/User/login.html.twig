@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if errors %}
+        <div class="messagebox">
+            <div class="alert alert-danger messagecenter" role="alert">
+                Błędne login lub hasło. Spróbuj jeszcze raz.
+            </div>
+        </div>
+    {% endif %}
+
+
+    <form action="{{ path('login') }}" method="post" class="user">
+        <div class="center">
+            <input type="text" id="username" name="_username" value="{{ username }}"
+                   placeholder="Nazwa użytkownika"/>
+        </div>
+        <div class="center">
+            <input type="password" id="password" name="_password" placeholder="Hasło"/>
+        </div>
+
+        <input type="hidden" name="_target_path" value="{{ path('loggedin') }}"/>
+
+        <div class="center" style="padding-bottom: 50px;padding-top: 30px;">
+            <button type="submit" class="btn btn-info">Zaloguj się</button>
+        </div>
+    </form>
+{% endblock %}
