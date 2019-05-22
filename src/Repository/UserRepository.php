@@ -19,14 +19,15 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function findProductsByUser(User $user)
+    public function findProductsByUser($user)
     {
-        $qb = $this->createQueryBuilder('c');
+        $qb = $this->createQueryBuilder('u');
         return $qb
-            ->select('c', 'u', 'p')
-            ->join('c.user', 'u')
-            ->join('c.products', 'p')
-            ->where('c.user = :user')
+            ->select('p', 'u' ,'c')
+            ->join('u.carts', 'c')
+            ->join('c.cart', 'u')
+            ->join('u.products', 'p')
+            ->where('p.user = :user')
             ->setParameter("user", $user)
             ->getQuery()
             ->getResult();
